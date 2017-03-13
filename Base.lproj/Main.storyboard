@@ -17,8 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <outlet property="delegate" destination="Uz8-Xg-cut" id="0Bx-EY-Zp7"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vk9-Jx-BGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Uz8-Xg-cut" userLabel="Transition Manager" customClass="TransitionManager" customModule="navigation_transition" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-497" y="170"/>
         </scene>
