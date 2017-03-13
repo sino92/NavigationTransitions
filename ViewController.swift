@@ -10,16 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let color = UIColor(
+        red: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
+        green: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
+        blue: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
+        alpha: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = color
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        navigationController?.pushViewController(ViewController(), animated: true)
     }
-
-
 }
-
