@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    let color = UIColor(
+    private let color = UIColor(
         red: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
         green: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
         blue: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
@@ -21,7 +21,11 @@ class ViewController: UIViewController {
         view.backgroundColor = color
     }
 
-    @IBAction func nextButtonTapped(_ sender: UIButton) {
+    @IBAction private func nextButtonTapped(_ sender: UIButton) {
+        navigationController?.pushViewController(AnotherViewController(), animated: true)
+    }
+    
+    @IBAction private func sameViewButtonTapped(_ sender: UIButton) {
         navigationController?.pushViewController(ViewController(), animated: true)
     }
 }
