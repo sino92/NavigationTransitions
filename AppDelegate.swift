@@ -24,8 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let viewController = ViewController()
         navigationController?.pushViewController(viewController, animated: false)
+        setupAnimatedTransitions()
         
         return true
+    }
+    
+    private func setupAnimatedTransitions() {
+        UserDeterminedTransitions().add(
+            transitionPairArray: [
+                TransitionType.vertical :
+                    [(ViewController.self, ViewController.self)],
+                TransitionType.snapshot :
+                    [(ViewController.self, AnotherViewController.self)]
+            ]
+        )
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
