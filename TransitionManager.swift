@@ -18,7 +18,6 @@ public typealias ViewControllerTypePair = (UIViewController.Type,UIViewControlle
 public enum TransitionType {
     case vertical
     case snapshot
-    case none
 }
 
 extension TransitionType {
@@ -28,8 +27,6 @@ extension TransitionType {
             return VerticalTransition(operation: operation)
         case .snapshot:
             return SnapshotTransition(operation: operation)
-        default:
-            return nil
         }
     }
 }
@@ -59,9 +56,13 @@ extension CompareViewControllersToTransitions {
 
 
 final class TransitionManager: NSObject, UINavigationControllerDelegate, CompareViewControllersToTransitions {
-    
-    internal func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-                
+
+    internal func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationControllerOperation,
+        from fromVC: UIViewController, to toVC: UIViewController
+        ) -> UIViewControllerAnimatedTransitioning? {
+        
         let type = transitionType(
             for: (type(of: fromVC),
                   type(of: toVC))

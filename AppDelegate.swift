@@ -15,17 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navigationController: UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-     
+
         window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         navigationController = storyboard.instantiateViewController(withIdentifier: "navigationController") as? UINavigationController
         window?.makeKeyAndVisible()
         window?.rootViewController = navigationController
-        
+
         let viewController = ViewController()
         navigationController?.pushViewController(viewController, animated: false)
         setupAnimatedTransitions()
-        
+
         return true
     }
     

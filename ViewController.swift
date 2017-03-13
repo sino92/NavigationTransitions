@@ -15,7 +15,7 @@ final class ViewController: UIViewController {
         green: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
         blue: CGFloat(Float(arc4random()) / Float(UINT32_MAX)),
         alpha: 1)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = color
@@ -24,7 +24,7 @@ final class ViewController: UIViewController {
     @IBAction private func nextButtonTapped(_ sender: UIButton) {
         navigationController?.pushViewController(AnotherViewController(), animated: true)
     }
-    
+
     @IBAction private func sameViewButtonTapped(_ sender: UIButton) {
         navigationController?.pushViewController(ViewController(), animated: true)
     }
