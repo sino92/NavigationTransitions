@@ -12,17 +12,18 @@ import UIKit
 class TransitionImplement: NSObject, UIViewControllerAnimatedTransitioning {
 
     let duration = 0.8
-    var operation : UINavigationControllerOperation = .none
+    fileprivate var isPush = false
 
     init(operation: UINavigationControllerOperation) {
-        self.operation = operation
+        guard operation != .none else { return }
+        isPush = operation.rawValue % 2 != 0
     }
 
-    internal func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 
-    internal func animateTransition(using transitionContext: UIViewControllerContextTransitioning) { }
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) { }
 }
 
 final class VerticalTransition: TransitionImplement {
@@ -34,19 +35,12 @@ final class VerticalTransition: TransitionImplement {
             let to = transitionContext.view(forKey: UITransitionContextViewKey.to)
             else { return }
 
-        containerView.addSubview(to)
         var verticalDelta: CGFloat = 0
-
-        switch operation {
-        case .push:
-            verticalDelta = -containerView.frame.size.height
-        case .pop:
-            verticalDelta = containerView.frame.size.height
-        default:
-            break
-        }
+        let containerHeight = containerView.frame.size.height
+        verticalDelta = isPush ? -1 * containerHeight : containerHeight
 
         to.transform = CGAffineTransform(translationX: 0, y: -verticalDelta)
+        containerView.addSubview(to)
 
         UIView.animate(
             withDuration: duration,
@@ -63,32 +57,40 @@ final class VerticalTransition: TransitionImplement {
     }
 }
 
-final class SnapshotTransition: TransitionImplement {
+final class ZoomTransition: TransitionImplement {
 
     override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+
         let containerView = transitionContext.containerView
         guard let from = transitionContext.view(forKey: UITransitionContextViewKey.from),
             let to = transitionContext.view(forKey: UITransitionContextViewKey.to)
             else { return }
 
-        to.alpha = 0.5
+        let viewToPresent = isPush ? to : from
+        let viewCenterFrame = CGRect(x: containerView.center.x, y: containerView.center.y, width: 1, height: 1)
+        let initialFrame = isPush ? viewCenterFrame : viewToPresent.frame
+        let finalFrame = isPush ? viewToPresent.frame : viewCenterFrame
+
+        let xScaleFactor = isPush ? (initialFrame.width / finalFrame.width) : (finalFrame.width / initialFrame.width)
+        let yScaleFactor = isPush ? (initialFrame.height / finalFrame.height) : (finalFrame.height / initialFrame.height)
+        let scaleTransform = CGAffineTransform(scaleX: xScaleFactor, y: yScaleFactor)
+
+
+        if isPush {
+            viewToPresent.transform = scaleTransform
+            viewToPresent.center = CGPoint(x: initialFrame.midX, y: initialFrame.midY)
+            viewToPresent.clipsToBounds = true
+        }
+
         containerView.addSubview(to)
-        containerView.sendSubview(toBack: to)
-
-        let snapshotView = from.snapshotView(afterScreenUpdates: false)
-        snapshotView?.frame = from.frame
-        containerView.addSubview(snapshotView!)
-
-        from.removeFromSuperview()
+        containerView.bringSubview(toFront: viewToPresent)
 
         UIView.animate(
             withDuration: duration,
             animations: {
-                snapshotView?.frame = from.frame.insetBy(dx: from.frame.size.width / 2, dy: from.frame.size.height / 2)
-                to.alpha = 1.0
-            },
-            completion: { (finished) in
-                snapshotView?.removeFromSuperview()
+                viewToPresent.transform = self.isPush ? CGAffineTransform.identity : scaleTransform
+                viewToPresent.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
+            }, completion: { _ in
                 transitionContext.completeTransition(true)
             }
         )

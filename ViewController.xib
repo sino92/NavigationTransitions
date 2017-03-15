@@ -20,15 +20,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTd-cT-V06">
-                    <rect key="frame" x="167.5" y="318" width="39" height="30"/>
-                    <state key="normal" title="Next"/>
+                    <rect key="frame" x="161" y="318" width="52" height="30"/>
+                    <state key="normal" title="Zoom"/>
                     <connections>
                         <action selector="nextButtonTapped:" destination="-1" eventType="touchUpInside" id="nNG-9K-TOb"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-WZ-lgh">
-                    <rect key="frame" x="167.5" y="356" width="39" height="30"/>
-                    <state key="normal" title="Same"/>
+                    <rect key="frame" x="161" y="356" width="52" height="30"/>
+                    <state key="normal" title="Vertical"/>
                     <connections>
                         <action selector="sameViewButtonTapped:" destination="-1" eventType="touchUpInside" id="nRr-SQ-zG6"/>
                     </connections>

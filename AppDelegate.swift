@@ -34,8 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             transitionPairArray: [
                 TransitionType.vertical :
                     [(ViewController.self, ViewController.self)],
-                TransitionType.snapshot :
-                    [(ViewController.self, AnotherViewController.self)]
+                TransitionType.zoom :
+                    [(ViewController.self, AnotherViewController.self),
+                     (AnotherViewController.self, ViewController.self)]
             ]
         )
     }

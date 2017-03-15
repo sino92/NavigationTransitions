@@ -17,7 +17,7 @@ public typealias ViewControllerTypePair = (UIViewController.Type,UIViewControlle
 
 public enum TransitionType {
     case vertical
-    case snapshot
+    case zoom
 }
 
 extension TransitionType {
@@ -25,13 +25,13 @@ extension TransitionType {
         switch self {
         case .vertical:
             return VerticalTransition(operation: operation)
-        case .snapshot:
-            return SnapshotTransition(operation: operation)
+        case .zoom:
+            return ZoomTransition(operation: operation)
         }
     }
 }
 
-struct UserDeterminedTransitions {
+public struct UserDeterminedTransitions {
     static fileprivate(set) var transitionPairs: [TransitionType : [ViewControllerTypePair]] = [:]
     
     public func add(transitionPairArray: [TransitionType : [ViewControllerTypePair]]) {
@@ -57,7 +57,7 @@ extension CompareViewControllersToTransitions {
 
 final class TransitionManager: NSObject, UINavigationControllerDelegate, CompareViewControllersToTransitions {
 
-    internal func navigationController(
+    func navigationController(
         _ navigationController: UINavigationController,
         animationControllerFor operation: UINavigationControllerOperation,
         from fromVC: UIViewController, to toVC: UIViewController
