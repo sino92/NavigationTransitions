@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--navigationController-->
+        <scene sceneID="1zz-8o-wjR">
+            <objects>
+                <navigationController storyboardIdentifier="navigationController" title="navigationController" id="WFK-PE-Zyj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="e8t-n0-0qb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <outlet property="delegate" destination="Uz8-Xg-cut" id="0Bx-EY-Zp7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vk9-Jx-BGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Uz8-Xg-cut" userLabel="Transition Manager" customClass="TransitionManager" customModule="navigation_transition" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="-497" y="170"/>
+        </scene>
+    </scenes>
+</document>
